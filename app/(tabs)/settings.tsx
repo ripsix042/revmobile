@@ -1,0 +1,141 @@
+import { ImageBackground, Pressable, StyleSheet, Text, View } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useSafeBottomTabBarHeight } from '@/hooks/use-safe-bottom-tab-bar-height';
+import { useRouter } from 'expo-router';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import Animated, { FadeInDown } from 'react-native-reanimated';
+
+import { GlassCardBase } from '../../constants/theme';
+
+export default function SettingsScreen() {
+  const insets = useSafeAreaInsets();
+  const tabBarHeight = useSafeBottomTabBarHeight();
+  const router = useRouter();
+
+  return (
+    <ImageBackground
+      source={require('../../assets/images/omyre1.png')}
+      style={styles.background}
+      imageStyle={styles.backgroundImage}
+      resizeMode="contain"
+    >
+    <SafeAreaView style={[styles.container, { paddingTop: insets.top + 50, paddingBottom: 16 + tabBarHeight }]}>
+      <Text style={styles.title}>Settings</Text>
+
+      {/* Server section */}
+      <Animated.View entering={FadeInDown.delay(40)} style={styles.section}>
+        <Text style={styles.sectionTitle}>Server</Text>
+        <Pressable
+          accessibilityRole="button"
+          style={styles.row}
+          onPress={() => router.push('/settings/sync')}
+        >
+          <View style={styles.rowLeft}>
+            <MaterialCommunityIcons name="server" size={20} color="#6f7aa6" />
+            <Text style={styles.rowText}>Server connection</Text>
+          </View>
+          <MaterialCommunityIcons name="chevron-right" size={20} color="#b0b0c0" />
+        </Pressable>
+      </Animated.View>
+
+      {/* More section */}
+      <Animated.View entering={FadeInDown.delay(60)} style={styles.section}>
+        <Text style={styles.sectionTitle}>More</Text>
+        <Pressable
+          accessibilityRole="button"
+          style={styles.row}
+          onPress={() => router.push('/settings/app-lock')}
+        >
+          <View style={styles.rowLeft}>
+            <MaterialCommunityIcons name="lock-outline" size={20} color="#6f7aa6" />
+            <Text style={styles.rowText}>App Lock</Text>
+          </View>
+          <MaterialCommunityIcons name="chevron-right" size={20} color="#b0b0c0" />
+        </Pressable>
+
+        <Pressable
+          accessibilityRole="button"
+          style={styles.row}
+          onPress={() => router.push('/settings/about')}
+        >
+          <View style={styles.rowLeft}>
+            <MaterialCommunityIcons name="information-outline" size={20} color="#6f7aa6" />
+            <Text style={styles.rowText}>About</Text>
+          </View>
+          <MaterialCommunityIcons name="chevron-right" size={20} color="#b0b0c0" />
+        </Pressable>
+      </Animated.View>
+    </SafeAreaView>
+    </ImageBackground>
+  );
+}
+
+const styles = StyleSheet.create({
+  background: { 
+    flex: 1, 
+    backgroundColor: '#f6b9fa',
+    width: '100%',
+    height: '100%',
+  },
+  backgroundImage: { 
+    opacity: 0.8,
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    alignSelf: 'center',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    padding: 16,
+  },
+  title: {
+    fontFamily: 'Merriweather',
+    fontSize: 30,
+    fontWeight: '900',
+    color: '#2f2f3a',
+    marginBottom: 12,
+  },
+  section: {
+    marginBottom: 16,
+  },
+  sectionTitle: {
+    fontSize: 13,
+    color: '#7a7a8a',
+    marginBottom: 8,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  row: {
+    ...GlassCardBase,
+    backgroundColor: 'rgba(255, 255, 255, 0.72)',
+    borderColor: 'rgba(255, 255, 255, 0.5)',
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  rowLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  rowText: {
+    fontFamily: 'Merriweather',
+    fontSize: 16,
+    color: '#2f2f3a',
+  },
+  rowHint: {
+    fontSize: 12,
+    color: '#9a9aa8',
+  },
+  rowDisabled: {
+    opacity: 0.6,
+  },
+});
