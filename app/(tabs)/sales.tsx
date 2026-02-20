@@ -128,7 +128,7 @@ export default function SalesScreen() {
       >
         {monthlyGroups.length === 0 ? (
           <Animated.Text entering={FadeIn} style={styles.emptyText}>
-            No sales yet. Tap New Sale to get started.
+            No sales yet. Tap + to get started.
           </Animated.Text>
         ) : (
           monthlyGroups.map((group, index) => (

@@ -304,7 +304,7 @@ export default function ProductsScreen() {
         {filteredProducts.length === 0 ? (
           <Animated.Text entering={FadeIn} style={styles.emptyText}>
             {products.length === 0
-              ? 'No products yet. Tap "Add Product" to get started.'
+              ? 'No products yet. Tap + to get started.'
               : searchLower
                 ? 'No products match your search.'
                 : `No ${selectedTab} products.`}
